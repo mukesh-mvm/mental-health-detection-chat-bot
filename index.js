@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import connectDB from "./db.js";
+import authRoutes from "./routes/authRoutes.js";
 import Journal from "./models/Journal.js";
 import OpenAI from "openai";
 dotenv.config();
@@ -13,7 +14,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
 connectDB();
+
+app.use("/api/auth", authRoutes);
 
 // 🔹 GET all journals
 app.get("/journals", async (req, res) => {
